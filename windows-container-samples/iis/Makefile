@@ -1,0 +1,13 @@
+CONTAINER_REPOSITORY_NAME=windows/iis
+IMAGE_TAG=v0.0.1
+CONTAINER_IMAGE_URL_WITH_TAG=${CONTAINER_REGISTRY_URL}/${CONTAINER_REPOSITORY_NAME}:${IMAGE_TAG}
+
+build:
+	docker build -t ${CONTAINER_IMAGE_URL_WITH_TAG} .
+
+push:
+	docker push ${CONTAINER_IMAGE_URL_WITH_TAG}
+
+all: build push
+
+phony: all build push
