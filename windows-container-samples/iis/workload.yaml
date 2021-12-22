@@ -1,9 +1,4 @@
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: windows
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -28,6 +23,16 @@ spec:
         imagePullPolicy: IfNotPresent
       nodeSelector:
         kubernetes.io/os: windows
+      # affinity:
+      #   podAntiAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #     - labelSelector:
+      #         matchExpressions:
+      #         - key: app
+      #           operator: In
+      #           values:
+      #           - windows-iis
+      #       topologyKey: "kubernetes.io/hostname"
 ---
 apiVersion: v1
 kind: Service
@@ -41,4 +46,4 @@ spec:
     targetPort: http
   selector:
     app: windows-iis
-  type: LoadBalancer
+  type: ClusterIP
